@@ -1,0 +1,71 @@
+-- =============================================
+-- MEDIDAS DAX - Desempeño Comercial y Rentabilidad
+-- Dataset: Sample Superstore
+-- Herramienta: Power BI Desktop
+-- Tabla fuente: superstore csv
+-- =============================================
+
+-- MÉTRICAS BASE
+
+-- Ingresos netos totales
+Ingresos Totales =
+SUM('superstore csv'[Sales])
+
+-- Beneficio total
+Total Profit =
+SUM('superstore csv'[Profit])
+
+-- Total de pedidos únicos
+Total Orders =
+DISTINCTCOUNT('superstore csv'[Order ID])
+
+-- Unidades vendidas
+Total Units =
+SUM('superstore csv'[Quantity])
+
+-- Ticket promedio por pedido
+Avg Order Value =
+DIVIDE([Ingresos Totales], [Total Orders], 0)
+
+
+-- RENTABILIDAD
+
+-- Margen bruto en porcentaje
+Profit Margin % =
+DIVIDE([Total Profit], [Ingresos Totales], 0)
+
+-- Descuento promedio aplicado
+Avg Discount % =
+AVERAGE('superstore csv'[Discount])
+
+
+
+-- INTELIGENCIA DE TIEMPO
+
+
+-- Ingresos acumulados en el año
+Sales YTD =
+TOTALYTD([Ingresos Totales], 'superstore csv'[Order Date])
+
+-- Ingresos del mismo periodo del año anterior
+Sales LY =
+CALCULATE(
+    [Ingresos Totales],
+    SAMEPERIODLASTYEAR('superstore csv'[Order Date])
+)
+
+-- Variación de ingresos vs año anterior (porcentaje)
+Sales vs LY % =
+DIVIDE(
+    [Ingresos Totales] - [Sales LY],
+    [Sales LY],
+    0
+)
+
+-- Participación de ingresos sobre el total general
+Sales % of Total =
+DIVIDE(
+    [Ingresos Totales],
+    CALCULATE([Ingresos Totales], ALL('superstore csv')),
+    0
+)
