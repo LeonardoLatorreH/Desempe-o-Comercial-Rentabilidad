@@ -72,7 +72,7 @@ Sales % of Total = DIVIDE([Ingresos Totales], CALCULATE([Ingresos Totales], ALL(
 
 ## Dashboard
 
-![Dashboard](images/dashboard_general.png)
+![Dashboard](images/DASB_LATORRE.png)
 
 ### KPIs principales
 
